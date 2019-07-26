@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>FreeCell 新接龍</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&display=swap&subset=cyrillic,cyrillic-ext,latin-ext"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="wrap">
+        <div class="nav">
+          <h1 class="title">Free<span>Cell</span></h1>
+          <div class="timer">{{ displayTimer }}</div>
+          <div class="control">
+            <a href="javascript:;" class="btn btn-undo"><span class="icon icon-undo"></span>undo</a>
+            <a href="javascript:;" class="btn btn-pause" @click="pause"><span class="icon icon-pause"></span>pause</a>
+            <a href="javascript:;" class="btn btn-restart" @click="restart"
+              ><span class="icon icon-loop"></span>restart</a
+            >
+          </div>
+        </div>
+        <div class="content">
+          <div class="storage-area">
+            <div class="finish-box" @drop="dropStorage($event)" @dragover="allowDrop($event)">
+              <div class="cards finish" v-for="finish in finishArea"></div>
+            </div>
+            <div class="temp-box" @drop="dropStorage($event)" @dragover="allowDrop($event)">
+              <div class="cards temp" v-for="(temp, index) in tempArea" :class="suitName(index)"></div>
+            </div>
+          </div>
+          <div class="play-area">
+            <div class="cards-box" v-for="cards in cardArea" @drop="dropPlay($event)" @dragover="allowDrop($event)">
+              <div
+                class="card"
+                v-for="card in cards"
+                draggable="true"
+                @dragstart="dragStart($event)"
+                @dragend="dragEnd($event)"
+              >
+                <img :src="card.src" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.js"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script src="js/script.js"></script>
+</html>
